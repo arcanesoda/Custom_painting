@@ -44,9 +44,12 @@ public class CustomPaintingsMod {
                     if (image != null) {
                         int widthInBlocks = (int) Math.ceil((double) image.getWidth() / 16.0);
                         int heightInBlocks = (int) Math.ceil((double) image.getHeight() / 16.0);
-                        EnumHelper.addEnum(EntityPainting.Motive.class, motiveName.toUpperCase(),
+                        
+                        // Используем правильный EnumArt для версии 1.12.2
+                        EnumHelper.addEnum(EntityPainting.EnumArt.class, motiveName.toUpperCase(),
                                 new Class<?>[]{String.class, int.class, int.class},
                                 motiveName, widthInBlocks * 16, heightInBlocks * 16);
+                        
                         CUSTOM_FILES.put(motiveName, file);
                     }
                 } catch (IOException e) {
