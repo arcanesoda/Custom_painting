@@ -14,7 +14,8 @@ public class PaintingEventHandler {
         if (!heldItem.isEmpty() && heldItem.getItem() == net.minecraft.init.Items.PAINTING && heldItem.hasDisplayName()) {
             String customName = heldItem.getDisplayName().toLowerCase().trim();
             if (CustomPaintingsMod.CUSTOM_FILES.containsKey(customName)) {
-                for (EntityPainting.Motive motive : EntityPainting.Motive.values()) {
+                // Итерируемся по EnumArt вместо старого Motive
+                for (EntityPainting.EnumArt motive : EntityPainting.EnumArt.values()) {
                     if (motive.title.equals(customName)) {
                         event.getWorld().getMinecraftServer().addScheduledTask(() -> {
                             BlockPos pos = event.getPos();
@@ -23,11 +24,12 @@ public class PaintingEventHandler {
                             for (EntityPainting entityPainting : paintings) {
                                 if (entityPainting.ticksExisted < 2) {
                                     try {
+                                        // "field_75692_b" — это SRG-имя приватного поля "art" (холст картины) в 1.12.2
                                         ObfuscationReflectionHelper.setPrivateValue(EntityPainting.class, entityPainting, motive, "art", "field_75692_b");
                                         entityPainting.art = motive;
                                         break;
                                     } catch (Exception e) {
-                                        CustomPaintingsMod.logger.error("Ошибка рефлексии", e);
+                                        CustomPaintingsMod.logger.error("Ошибка рефлексии при подмене картины", e);
                                     }
                                 }
                             }
