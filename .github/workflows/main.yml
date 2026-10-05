@@ -12,7 +12,7 @@ jobs:
         distribution: 'zulu'
     - name: Install Gradle
       run: |
-        wget https://gradle.org
+        wget https://services.gradle.org/distributions/gradle-4.10.3-bin.zip
         unzip gradle-4.10.3-bin.zip
         echo "$GITHUB_WORKSPACE/gradle-4.10.3/bin" >> $GITHUB_PATH
     - name: Setup Forge
