@@ -1,10 +1,11 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "https://files.minecraftforge.net/maven" }
+        maven { url = "https://cleanroommc.com" }
+        maven { url = "https://maven.minecraftforge.net/" }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-patched'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -13,27 +14,14 @@ version = "1.0"
 group = "com.example.custompaintings"
 archivesBaseName = "custompaintings"
 
-sourceCompatibility = targetCompatibility = '1.8'
-compileJava.options.encoding = 'UTF-8'
-
 minecraft {
-    version = "1.12.2-14.23.5.2859"
+    version = "1.12.2-14.23.5.2860"
     runDir = "run"
     mappings = "stable_39"
+    makeObfSourceJar = false
 }
 
-dependencies {}
-
-processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
+repositories {
+    mavenCentral()
+    maven { url = "https://cleanroommc.com" }
 }
